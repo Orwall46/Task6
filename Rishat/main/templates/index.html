@@ -1,0 +1,70 @@
+{% extends 'navbar.html' %}
+
+{% block title_ru %}
+Stripe Payments
+{% endblock %}
+
+{% block content_ru %}
+
+    {% if error %}
+    <div class="px-4 pt-5 my-5 text-center border-bottom">
+        <h1 class="display-4 fw-bold">Please, Log in!</h1>
+    </div>
+    {% elif success %}
+    <div class="px-4 pt-5 my-5 text-center border-bottom">
+        <h1 class="display-4 fw-bold">Good job! Item was add to your cart!</h1>
+    </div>
+    {% else %}
+    <div class="px-4 pt-5 my-5 text-center border-bottom">
+        <h1 class="display-4 fw-bold">Stripe Payments</h1>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-4">Financial infrastructure for the internet. Millions of companies of all sizes—from startups to Fortune 500s—use Stripes software and APIs to accept payments, send payouts, and manage their businesses online.</p>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="container text-center">
+        <div class="row">
+            {% if items %}
+            {% for item in items %}
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <img src="https://images.unsplash.com/photo-1432958576632-8a39f6b97dc7?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=6ecedc1e639d8a4b77aa8e85f4962f03" class="card-img-top" alt="Rashit">
+                        <div class="card-body">
+                        <h5 class="card-title">{{item.name}}</h5>
+                        <p class="card-text">{{item.description}}</p>
+                        <a href="{% url 'item_detail' item.id %}" class="btn btn-primary">More Information</a>
+                        </div>
+                        <div class="card-footer text-muted">
+                            Price - {{item.price}} 
+                            {% if item.currency == 'USD' %} USD
+                            {% elif item.currency == 'RUB' %} RU
+                            {% elif item.currency == 'AMD' %} AMD
+                            {% elif item.currency == 'EUR' %} EU
+                            {% endif %}
+                            <br>
+                        </div>
+                        <form action="{% url 'buy_item' item.id %}" method="GET">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-dark">Checkout</button>
+                        </form>
+                        {% if forloop.first %}
+                        <form action="{% url 'intent' item.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-warning">Intent</button>
+                        </form>
+                        {% endif %}
+                        <form action="{% url 'add_to_cart' item.id %}" method="GET">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success">Add to Cart</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+            {% else %}
+            <h5>No items yet</h5>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
