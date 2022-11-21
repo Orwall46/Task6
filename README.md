@@ -60,7 +60,6 @@ docker-compose exec app python Rishat/manage.py createsuperuser --username=admin
 Все функции доступны и работают. 
 Пароль/логин от админк: admin/admin
 
-## Документация
 # URL
 
 - `/` - Главная(Домашняя) страница. 
