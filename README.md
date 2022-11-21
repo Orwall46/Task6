@@ -29,7 +29,7 @@ activate
 ```
 pip install -r requirements.txt
 ``` 
-Run Django, Rabbit, Celery
+Run Django, Postgres
 ```
 cd Rishat
 ```
