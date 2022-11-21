@@ -79,7 +79,7 @@ docker-compose exec app python Rishat/manage.py createsuperuser --username=admin
 - `success/` и `cancel/` - Возращает при успехе/неудаче после формы. 
 - `admin/` - Админ панель. Можно отследить все модели приложения.
 
-## Что реализовано? 
+## Что реализовано из бонусных задач? 
 + Запуск используя Docker
 + Использование environment variables
 + Просмотр Django Моделей в Django Admin панели
