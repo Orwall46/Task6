@@ -127,7 +127,7 @@ class CartListView(APIView):
     template_name = 'cart.html'
 
     def get(self, request):
-        orders = Order.objects.filter(user=request.user)
+        orders = Order.objects.filter(user=request.user).select_related('item')
         order_sum = order_summ(orders)
         return Response({'orders': orders, 'order_sum': order_sum})
 
